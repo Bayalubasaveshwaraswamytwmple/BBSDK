@@ -561,20 +561,26 @@ document.addEventListener("DOMContentLoaded", () => {
     if (card) openCardModal(card, subcardId);
   };
 
+  const buildStoryText = (sc, lang) => {
+    let t = `${sc.title[lang] || ''}. ${sc.summary[lang] || ''}. `;
+    if (sc.content && sc.content[lang]) {
+      t += sc.content[lang];
+    } else if (sc.subsubcards) {
+      sc.subsubcards.forEach(ssc => {
+        t += `${ssc.title[lang] || ''}. ${ssc.desc[lang] || ''}. `;
+      });
+    }
+    return t;
+  };
+
   window.narrateSubcard = (cardId, subcardId) => {
     const card = templeData.cards.find(c => c.id === cardId);
     if (!card) return;
     const sc = card.subcards.find(s => s.id === subcardId);
     if (!sc) return;
 
-    let textToSpeak = `${sc.title[state.lang]}. ${sc.summary[state.lang]}. `;
-    if (sc.content) {
-      textToSpeak += sc.content[state.lang];
-    } else if (sc.subsubcards) {
-      sc.subsubcards.forEach(ssc => {
-        textToSpeak += `${ssc.title[state.lang]}. ${ssc.desc[state.lang]}. `;
-      });
-    }
+    const primaryText = buildStoryText(sc, state.lang);
+    const fallbackText = buildStoryText(sc, state.lang === 'kn' ? 'en' : 'kn');
 
     const box = document.getElementById(`modal-${subcardId}`);
     const listenBtn = box ? box.querySelector(".listen-story-btn") : null;
@@ -585,12 +591,12 @@ document.addEventListener("DOMContentLoaded", () => {
       stopBtn.style.display = "inline-flex";
     }
 
-    templeAudio.speakText(textToSpeak, state.lang, () => {
+    templeAudio.speakText(primaryText, state.lang, () => {
       if (listenBtn && stopBtn) {
         listenBtn.style.display = "inline-flex";
         stopBtn.style.display = "none";
       }
-    });
+    }, fallbackText);
   };
 
   window.stopNarration = () => {
@@ -598,6 +604,19 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".listen-story-btn").forEach(b => b.style.display = "inline-flex");
     document.querySelectorAll(".stop-story-btn").forEach(b => b.style.display = "none");
   };
+
+  // -------------------------------------------------------------
+  // Record Visitor Count (Increments on every temple portal visit)
+  // -------------------------------------------------------------
+  const recordVisitorHit = () => {
+    try {
+      const trackerImg = new Image();
+      trackerImg.src = `https://visitor-badge.laobi.icu/badge?page_id=Bayalubasaveshwaraswamytwmple.BBSDK&t=${Date.now()}`;
+    } catch (e) {
+      console.warn("Visitor tracker:", e);
+    }
+  };
+  recordVisitorHit();
 
   window.scrollToGallery = () => {
     closeModal();

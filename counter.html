@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temple Portal Visitor Tracker | ಶ್ರೀ ಬಯಲು ಬಸವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನ ಭಕ್ತರ ಗಣಕ</title>
+  
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/jpeg" href="assets/bruhat_nandi.jpg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Noto+Sans+Kannada:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #120c09;
+      color: #faf5e8;
+      font-family: 'Poppins', 'Noto Sans Kannada', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      background-image: 
+        radial-gradient(circle at 50% 10%, rgba(226, 176, 54, 0.12) 0%, transparent 60%),
+        linear-gradient(rgba(18, 12, 9, 0.95), rgba(18, 12, 9, 0.98));
+    }
+    .tracker-card {
+      background: linear-gradient(165deg, #221610, #150d09);
+      border: 2px solid #e2b036;
+      border-radius: 28px;
+      padding: 2.75rem 2rem;
+      max-width: 580px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(226, 176, 54, 0.25);
+      position: relative;
+    }
+    .top-om {
+      font-size: 2rem;
+      color: #ffb703;
+      margin-bottom: 0.6rem;
+      animation: pulse 2s infinite alternate ease-in-out;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); filter: drop-shadow(0 0 5px #ffb703); }
+      100% { transform: scale(1.1); filter: drop-shadow(0 0 15px #f26a1b); }
+    }
+    .tracker-title {
+      font-family: 'Cinzel', 'Noto Sans Kannada', serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #ffd466;
+      line-height: 1.3;
+      margin-bottom: 0.35rem;
+    }
+    .tracker-subtitle {
+      font-size: 0.88rem;
+      color: #cbbba9;
+      margin-bottom: 2rem;
+    }
+    .counter-display-box {
+      background: rgba(14, 9, 6, 0.9);
+      border: 2px solid rgba(226, 176, 54, 0.5);
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      margin-bottom: 1.75rem;
+      box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.8);
+      position: relative;
+    }
+    .counter-label {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #f26a1b;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .counter-number {
+      font-family: 'Cinzel', monospace;
+      font-size: 4rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #fff2a3, #e2b036, #f26a1b);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+      margin-bottom: 0.6rem;
+      text-shadow: 0 4px 20px rgba(226, 176, 54, 0.3);
+    }
+    .counter-status {
+      font-size: 0.82rem;
+      color: #70d6ff;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      background: #06d6a0;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #06d6a0;
+      animation: blink 1.5s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .action-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .action-btn {
+      background: rgba(43, 28, 20, 0.85);
+      border: 1px solid #e2b036;
+      color: #ffd466;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 600;
+      padding: 0.75rem 1.25rem;
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      transition: all 0.2s ease;
+    }
+    .action-btn:hover {
+      background: #631716;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+    }
+    .action-btn.primary {
+      background: linear-gradient(135deg, #e2b036, #c59b27);
+      color: #120c09;
+      border-color: #fff2a3;
+      font-weight: 700;
+    }
+    .badge-preview-box {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: rgba(20, 13, 9, 0.6);
+      border-radius: 12px;
+      border: 1px dashed rgba(226, 176, 54, 0.3);
+    }
+    .badge-preview-box p {
+      font-size: 0.78rem;
+      color: #9e8e7e;
+      margin-bottom: 0.5rem;
+    }
+    .footer-note {
+      font-size: 0.75rem;
+      color: #7b6c5f;
+      margin-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="tracker-card">
+    <div class="top-om">ॐ</div>
+    <h1 class="tracker-title">ಶ್ರೀ ಬಯಲು ಬಸವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನ</h1>
+    <p class="tracker-subtitle">Private Devotee Visit Tracker & Live Analytics</p>
+
+    <!-- Main Live Counter Box -->
+    <div class="counter-display-box">
+      <div class="counter-label">Total Visits to Temple Portal / ಒಟ್ಟು ಭಕ್ತರ ಸಂಖ್ಯೆ</div>
+      <div class="counter-number" id="counter-value">...</div>
+      <div class="counter-status">
+        <span class="status-dot"></span>
+        <span id="last-updated">Live Counter Active (Auto-refreshing)</span>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="action-grid">
+      <button class="action-btn primary" id="refresh-btn" onclick="fetchLiveCount()">
+        <i class="fa-solid fa-arrows-rotate"></i>
+        <span>Refresh Now / ಈಗಲೇ ನವೀಕರಿಸಿ</span>
+      </button>
+
+      <a href="https://github.com/Bayalubasaveshwaraswamytwmple/BBSDK/graphs/traffic" target="_blank" rel="noopener noreferrer" class="action-btn">
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Official GitHub Traffic Graphs (Daily / Unique Views)</span>
+      </a>
+
+      <a href="index.html" class="action-btn">
+        <i class="fa-solid fa-gopuram"></i>
+        <span>Open Temple Website / ದೇವಸ್ಥಾನ ತಾಣಕ್ಕೆ ತೆರಳಿ</span>
+      </a>
+
+      <a href="assets/temple_nandi_qr_code.png" download="temple_nandi_qr_code.png" class="action-btn">
+        <i class="fa-solid fa-qrcode"></i>
+        <span>Download Official QR Code Image</span>
+      </a>
+    </div>
+
+    <!-- Live SVG Badge -->
+    <div class="badge-preview-box">
+      <p>Live Server Badge Verification:</p>
+      <img id="live-badge-img" src="https://visitor-badge.laobi.icu/badge?page_id=Bayalubasaveshwaraswamytwmple.BBSDK" alt="Live Visitor Badge" style="height: 24px;">
+    </div>
+
+    <p class="footer-note">
+      🔒 This private page is only for the temple admin. Keep this URL bookmarked to track real-time devotee scans.
+    </p>
+  </div>
+
+  <script>
+    const counterValueEl = document.getElementById('counter-value');
+    const lastUpdatedEl = document.getElementById('last-updated');
+    const badgeImgEl = document.getElementById('live-badge-img');
+
+    async function fetchLiveCount() {
+      const now = Date.now();
+      counterValueEl.style.opacity = '0.5';
+
+      try {
+        // Fetch SVG from visitor counter endpoint
+        const response = await fetch(`https://visitor-badge.laobi.icu/badge?page_id=Bayalubasaveshwaraswamytwmple.BBSDK&nocache=${now}`);
+        if (response.ok) {
+          const svgText = await response.text();
+          const matches = svgText.match(/>(\d+)</g);
+          if (matches && matches.length > 0) {
+            const countNum = matches[matches.length - 1].replace(/[><]/g, '');
+            counterValueEl.textContent = countNum;
+            lastUpdatedEl.textContent = `Updated at ${new Date().toLocaleTimeString()} (Active)`;
+          }
+        }
+      } catch (err) {
+        console.warn("Direct fetch notice:", err);
+      } finally {
+        counterValueEl.style.opacity = '1';
+        if (badgeImgEl) {
+          badgeImgEl.src = `https://visitor-badge.laobi.icu/badge?page_id=Bayalubasaveshwaraswamytwmple.BBSDK&nocache=${now}`;
+        }
+      }
+    }
+
+    // Initial fetch on page load
+    fetchLiveCount();
+
+    // Auto-refresh every 20 seconds
+    setInterval(fetchLiveCount, 20000);
+  </script>
+</body>
+</html>
