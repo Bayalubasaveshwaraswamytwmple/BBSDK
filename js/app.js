@@ -609,14 +609,44 @@ document.addEventListener("DOMContentLoaded", () => {
   // Record Visitor Count (Increments on every temple portal visit)
   // -------------------------------------------------------------
   const recordVisitorHit = () => {
+    const timestamp = Date.now();
+    const seed = Math.floor(Math.random() * 100000);
+
+    // 1. Primary Hit: Abacus API (supports instant hit without CORS blocking)
+    try {
+      const pingAbacus = new Image();
+      pingAbacus.src = `https://abacus.jasoncameron.dev/hit/bayalubasaveshwaratemple_bbsdk/visits?t=${timestamp}&r=${seed}`;
+      window.__templePingAbacus = pingAbacus;
+
+      if (typeof fetch !== "undefined") {
+        fetch(`https://abacus.jasoncameron.dev/hit/bayalubasaveshwaratemple_bbsdk/visits?t=${timestamp}&r=${seed}`, {
+          mode: "no-cors",
+          cache: "no-store"
+        }).catch(() => {});
+      }
+    } catch (e) {
+      console.warn("Tracker abacus notice:", e);
+    }
+
+    // 2. Secondary Hit: visitor-badge.laobi.icu (server SVG badge hit)
     try {
       const trackerImg = new Image();
-      trackerImg.src = `https://visitor-badge.laobi.icu/badge?page_id=Bayalubasaveshwaraswamytwmple.BBSDK&t=${Date.now()}`;
+      trackerImg.src = `https://visitor-badge.laobi.icu/badge?page_id=Bayalubasaveshwaraswamytwmple.BBSDK&t=${timestamp}&r=${seed}`;
+      window.__templePingBadge = trackerImg;
     } catch (e) {
-      console.warn("Visitor tracker:", e);
+      console.warn("Visitor tracker notice:", e);
     }
   };
+
+  // Fire immediately
   recordVisitorHit();
+
+  // Also fire if restored from mobile back/forward cache
+  window.addEventListener("pageshow", (event) => {
+    if (event && event.persisted) {
+      recordVisitorHit();
+    }
+  });
 
   window.scrollToGallery = () => {
     closeModal();
