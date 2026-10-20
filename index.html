@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sri Bayalu Basaweshwara Swamy Devasthana, Kommasandra | ಶ್ರೀ ಬಯಲು ಬಸವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನ</title>
+  
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description" content="Official pilgrimage portal for Sri Bayalu Basaweshwara Swamy Devasthana, Kommasandra, Anekal Taluk, Bengaluru. Discover temple history, legends, cattle healing harake, Ragi Mudde oota tradition, Jatre celebrations, and the majestic Bruhat Nandi.">
+  <meta name="keywords" content="Bayalu Basaweshwara, Kommasandra, Bruhat Nandi, Anekal, Bengaluru, Madduramma Jatre, Ragi Mudde Oota, Epigraphia Carnatica, Karaga, Veeragase, Harake">
+  <meta name="theme-color" content="#120c09">
+
+  <!-- Favicon / App Icon -->
+  <link rel="icon" type="image/jpeg" href="assets/bruhat_nandi.jpg">
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Core Temple Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="diya-glow">
+
+  <!-- Interactive Flower Shower Falling Canvas -->
+  <canvas id="flower-canvas"></canvas>
+
+  <!-- ==========================================================================
+       Loading Screen / Temple Sanctum Portal (Featuring the Deity Image)
+       ========================================================================== -->
+  <aside id="loading-screen" aria-label="Temple Welcome Screen">
+    <div class="loading-container">
+      <div class="temple-arch-frame">
+        <div class="arch-torana">
+          <i class="fa-solid fa-bell torana-bell"></i>
+          <span>|| ॐ ಶ್ರೀ ಬಯಲು ಬಸವೇಶ್ವರಾಯ ನಮಃ ||</span>
+          <i class="fa-solid fa-bell torana-bell"></i>
+        </div>
+        
+        <div class="loading-image-wrap">
+          <img src="assets/bruhat_nandi.jpg" alt="Sri Bayalu Basaweshwara Swamy Bruhat Nandi Deity" id="loading-deity-img">
+          <div class="aarti-glow"></div>
+          <div class="diya-pair">
+            <span class="diya-lamp">🪔</span>
+            <span class="diya-lamp">🪔</span>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="loading-mantra" data-i18n="ui.loadingMantra">ಓಂ ಶ್ರೀ ಬಯಲು ಬಸವೇಶ್ವರಾಯ ನಮಃ</h2>
+      <p class="loading-subtitle" data-i18n="ui.loadingSubtitle">ಪವಿತ್ರ ಗರ್ಭಗುಡಿಯ ದರ್ಶನ ಸಿದ್ಧವಾಗುತ್ತಿದೆ...</p>
+
+      <button id="enter-temple-btn" class="enter-temple-btn" aria-label="Enter Temple">
+        <i class="fa-solid fa-om"></i>
+        <span data-i18n="ui.enterTemple">ದೇವಾಲಯ ಪ್ರವೇಶಿಸಿ</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       Auspicious Top Ribbon
+       ========================================================================== -->
+  <div class="auspicious-ribbon">
+    <span>|| ಶ್ರೀ ಶಂಭುಲಿಂಗಾಯ ನಮಃ ||</span>
+    <i class="fa-solid fa-om"></i>
+    <span>|| ಶ್ರೀ ಬಯಲು ಬಸವೇಶ್ವರ ಸ್ವಾಮಿ ಪ್ರಸನ್ನ ||</span>
+    <i class="fa-solid fa-om"></i>
+    <span>|| ಹರ ಹರ ಮಹಾದೇವ ||</span>
+  </div>
+
+  <!-- ==========================================================================
+       Main Sticky Navigation
+       ========================================================================== -->
+  <header class="main-header">
+    <div class="nav-container">
+      <a href="#" class="nav-brand">
+        <div class="nav-logo-wrap">
+          <img src="assets/bruhat_nandi.jpg" alt="Temple Logo">
+        </div>
+        <div class="nav-brand-text">
+          <h1 data-i18n="meta.siteTitle">ಶ್ರೀ ಬಯಲು ಬಸವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನ</h1>
+          <span data-i18n="meta.subTitle">ಕೊಮ್ಮಸಂದ್ರ, ಆನೆಕಲ್ ತಾಲ್ಲೂಕು, ಬೆಂಗಳೂರು</span>
+        </div>
+      </a>
+
+      <!-- Quick Action Controls -->
+      <nav class="nav-actions" aria-label="Site Controls">
+        <!-- Language Switcher: Kannada <-> English -->
+        <button id="lang-toggle-btn" class="action-btn lang-btn" title="Translate Kannada / English" aria-label="Toggle Language">
+          <i class="fa-solid fa-language"></i>
+          <span>English</span>
+        </button>
+
+        <!-- Flower Showering Button -->
+        <button id="flower-shower-btn" class="action-btn flower-btn" title="Shower Sacred Flowers" aria-label="Shower Flowers">
+          <i class="fa-solid fa-spa"></i>
+          <span data-i18n="ui.flowerShower">ಪುಷ್ಪ ವೃಷ್ಟಿ 🌸</span>
+        </button>
+
+        <!-- Ring Temple Bell Button -->
+        <button id="ring-bell-btn" class="action-btn" title="Ring Auspicious Temple Bell" aria-label="Ring Temple Bell">
+          <i class="fa-solid fa-bell" id="header-bell-icon"></i>
+          <span data-i18n="ui.ringBell">ಘಂಟಾ ನಾದ 🔔</span>
+        </button>
+
+        <!-- Light Diya Button -->
+        <button id="light-diya-btn" class="action-btn active" title="Toggle Diya Radiance" aria-label="Light Diya">
+          <i class="fa-solid fa-fire-flame-curved"></i>
+          <span data-i18n="ui.lightDiya">ದೀಪ ಬೆಳಗಿಸಿ 🪔</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       Hero Section & Deity Showcase
+       ========================================================================== -->
+  <main>
+    <section class="hero-section">
+      <div class="hero-content">
+        
+        <!-- Sacred Banner with Deity Photo (Clean Alignment, No Text Overlay) -->
+        <div class="hero-banner-deity-card">
+          <div class="hero-img-container">
+            <img src="assets/bruhat_nandi.jpg" alt="Sri Bruhat Nandi at Kommasandra Temple" class="hero-nandi-img">
+          </div>
+        </div>
+
+        <div class="hero-heading-box">
+          <div class="sacred-badge">
+            <i class="fa-solid fa-dharmachakra"></i>
+            <span>ಸ್ವಯಂಭೂ ಕ್ಷೇತ್ರ | ಬಯಲು ಆಲಯ | ಮಹಾದಾಸೋಹ</span>
+          </div>
+
+          <h2 class="main-site-title" data-i18n="meta.siteTitle">
+            <span>ಶ್ರೀ ಬಯಲು ಬಸವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನ</span>, ಕೊಮ್ಮಸಂದ್ರ
+          </h2>
+
+          <p class="site-subtitle" data-i18n="meta.subTitle">
+            ಕೊಮ್ಮಸಂದ್ರದ ಪುಣ್ಯಕ್ಷೇತ್ರ | ದೈವಿಕ ಪವಾಡಗಳು, ಪುರಾತನ ಇತಿಹಾಸ ಹಾಗೂ ಭವ್ಯ ಬೃಹತ್ ನಂದಿಯ ದರ್ಶನ
+          </p>
+
+          <p class="site-tagline" data-i18n="meta.tagline">
+            ಬಯಲಿನಲ್ಲಿಯೇ ಭಕ್ತರನ್ನು ಕಾಯುವ ಶಂಭುಲಿಂಗ — ನಂಬಿಕೆ, ಪವಾಡ ಹಾಗೂ ಮಹಾದಾಸೋಹದ ಪುಣ್ಯಧಾಮ.
+          </p>
+        </div>
+
+        <!-- Quick Search Bar -->
+        <div class="search-explore-bar">
+          <div class="search-input-wrapper">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input 
+              type="text" 
+              id="search-input" 
+              class="search-input" 
+              placeholder="ಕಥೆಗಳು, ಇತಿಹಾಸ, ಜಾತ್ರೆ, ಸಂಪ್ರದಾಯಗಳನ್ನು ಹುಡುಕಿ..." 
+              data-i18n-placeholder="ui.searchPlaceholder"
+              aria-label="Search temple stories and traditions"
+            >
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         The 7 Interactive Temple Cards Section
+         ========================================================================== -->
+    <section class="main-content-section" id="cards-section">
+      <div class="section-header">
+        <div class="section-ornament">
+          <i class="fa-solid fa-om"></i>
+        </div>
+        <h2 class="section-title" data-i18n="ui.viewAllCards">ದೇವಾಲಯದ ವಿವರಣಾ ಕಾರ್ಡ್‌ಗಳು</h2>
+        <p class="section-subtitle" data-i18n="ui.quickInfo">
+          ಕ್ಷೇತ್ರದ ಪೌರಾಣಿಕ ಕಥೆಗಳು, ದಾಖಲಿತ ಇತಿಹಾಸ, ರಾಗಿ ಮುದ್ದೆ ದಾಸೋಹ, ಜಾತ್ರಾ ವೈಭವ ಹಾಗೂ ಬೃಹತ್ ನಂದಿಯ ಸಮಗ್ರ ಮಾಹಿತಿ
+        </p>
+      </div>
+
+      <!-- The Grid of 7 Cards rendered dynamically via translations.js & app.js -->
+      <div id="cards-grid" class="cards-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Card 7 Showcase: Full Sacred Darshana & Photo Gallery
+         ========================================================================== -->
+    <section class="gallery-section" id="gallery-section">
+      <div class="section-header">
+        <div class="section-ornament">
+          <i class="fa-solid fa-camera-retro"></i>
+        </div>
+        <h2 class="section-title" data-i18n="ui.photoGallery">ದೇವಾಲಯದ ಪವಿತ್ರ ಛಾಯಾಂಕಣ ಮತ್ತು ದರ್ಶನ</h2>
+        <p class="section-subtitle">
+          ಶ್ರೀ ಬಸವೇಶ್ವರ ಸ್ವಾಮಿಯ ಗರ್ಭಗುಡಿಯ ದರ್ಶನ, ಬೃಹತ್ ನಂದಿ, ಜಾತ್ರಾ ರಥೋತ್ಸವ ಹಾಗೂ ರಾಗಿ ಮುದ್ದೆ ದಾಸೋಹದ ಮೂಲ ಛಾಯಾಚಿತ್ರಗಳು
+        </p>
+      </div>
+
+      <!-- Gallery Filters -->
+      <div class="gallery-filters" role="tablist">
+        <button class="gallery-filter-btn active" data-category="all" role="tab">
+          <i class="fa-solid fa-layer-group"></i> 
+          <span>ಎಲ್ಲಾ ಚಿತ್ರಗಳು</span>
+        </button>
+        <button class="gallery-filter-btn" data-category="deity" role="tab">
+          <i class="fa-solid fa-om"></i> 
+          <span>ಗರ್ಭಗುಡಿ ದೈವ</span>
+        </button>
+        <button class="gallery-filter-btn" data-category="nandi" role="tab">
+          <i class="fa-solid fa-shield-halved"></i> 
+          <span>ಬೃಹತ್ ನಂದಿ</span>
+        </button>
+        <button class="gallery-filter-btn" data-category="temple" role="tab">
+          <i class="fa-solid fa-gopuram"></i> 
+          <span>ದೇವಾಲಯ & ದೀಪಾಲಂಕಾರ</span>
+        </button>
+        <button class="gallery-filter-btn" data-category="jatre" role="tab">
+          <i class="fa-solid fa-bell"></i> 
+          <span>ಜಾತ್ರಾ ವೈಭವ</span>
+        </button>
+        <button class="gallery-filter-btn" data-category="food" role="tab">
+          <i class="fa-solid fa-bowl-rice"></i> 
+          <span>ರಾಗಿ ಮುದ್ದೆ ದಾಸೋಹ</span>
+        </button>
+        <button class="gallery-filter-btn" data-category="rituals" role="tab">
+          <i class="fa-solid fa-fire"></i> 
+          <span>ಕರಗ, ಗೋವು & ವೀರಗಾಸೆ</span>
+        </button>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div id="gallery-grid" class="gallery-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Stone Plaque Disclaimer (Sourced from Google Archives & Village Elders)
+         ========================================================================== -->
+    <section class="disclaimer-section">
+      <div class="stone-plaque-disclaimer">
+        <div class="disclaimer-icon">
+          <i class="fa-solid fa-feather"></i>
+        </div>
+        <h3 class="disclaimer-heading" data-i18n="ui.disclaimerTitle">
+          ಗೌರವಪೂರ್ವಕ ಹಕ್ಕುತ್ಯಾಗ ಹಾಗೂ ಮಾಹಿತಿ ಮೂಲ
+        </h3>
+        <p class="disclaimer-body" data-i18n="ui.disclaimerText">
+          ಹಕ್ಕುತ್ಯಾಗ (Disclaimer): ಈ ಪವಿತ್ರ ಜಾಲತಾಣವನ್ನು ಭಕ್ತಾದಿಗಳು, ಪ್ರವಾಸಿಗರು ಮತ್ತು ಸಂಶೋಧಕರ ಅನುಕೂಲಕ್ಕಾಗಿ ರೂಪಿಸಲಾಗಿದೆ. ಇಲ್ಲಿ ದಾಖಲಿಸಲಾಗಿರುವ ಪೌರಾಣಿಕ ಕಥೆಗಳು, ಐತಿಹಾಸಿಕ ಘಟನೆಗಳು ಮತ್ತು ಜಾತ್ರಾ ಸಂಪ್ರದಾಯಗಳನ್ನು ಗೂಗಲ್ ಡಿಜಿಟಲ್ ದಾಖಲೆಗಳು, ಶಾಸನ ಸಂಪುಟಗಳು (ಎಪಿಗ್ರಾಫಿಯಾ ಕರ್ನಾಟಿಕ) ಹಾಗೂ ಕೊಮ್ಮಸಂದ್ರ ಗ್ರಾಮದ ಗೌರವಾನ್ವಿತ ಹಿರಿಯರ ಮುಖಾಂತರ ಭಕ್ತಿಯಿಂದ ಸಂಗ್ರಹಿಸಲಾಗಿದೆ. ಈ ಕ್ಷೇತ್ರದ ಪ್ರಮುಖ ಮುಖ್ಯಾಂಶಗಳನ್ನು ಮಾತ್ರ ಇಲ್ಲಿ ಸ್ಪಷ್ಟವಾಗಿ ಪ್ರಸ್ತುತಪಡಿಸಲಾಗಿದೆ.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       Footer
+       ========================================================================== -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <h3 class="footer-logo" data-i18n="meta.siteTitle">ಶ್ರೀ ಬಯಲು ಬಸವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನ, ಕೊಮ್ಮಸಂದ್ರ</h3>
+      <p class="footer-tagline">
+        ಸಕಲ ಸದ್ಭಕ್ತರಿಗೆ ಶ್ರೀ ಬಯಲು ಬಸವೇಶ್ವರ ಸ್ವಾಮಿಯ ಕೃಪಾಕಟಾಕ್ಷ ಸದಾ ಇರಲಿ.
+      </p>
+
+      <div class="footer-links">
+        <button class="footer-btn-link" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+          <i class="fa-solid fa-arrow-up"></i>
+          <span>ಮೇಲಕ್ಕೆ ಹೋಗಿ</span>
+        </button>
+        <button class="footer-btn-link" onclick="document.getElementById('flower-shower-btn').click()">
+          <i class="fa-solid fa-spa"></i>
+          <span>ಪುಷ್ಪ ವೃಷ್ಟಿ</span>
+        </button>
+        <button class="footer-btn-link" onclick="document.getElementById('ring-bell-btn').click()">
+          <i class="fa-solid fa-bell"></i>
+          <span>ಘಂಟಾ ನಾದ</span>
+        </button>
+      </div>
+
+      <p class="footer-credits">
+        Dedicated with reverence to Lord Bayalu Basaweshwara & the people of Kommasandra.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       Detailed Card / Subcard Story Modal
+       ========================================================================== -->
+  <aside id="card-detail-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Card Details">
+    <div class="modal-container">
+      <button id="modal-close-btn" class="modal-close-button" aria-label="Close Modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="modal-scrollable-body" id="modal-body-content">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       Image Lightbox Modal
+       ========================================================================== -->
+  <aside id="lightbox-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Photo View">
+    <div class="lightbox-content-box">
+      <button id="lightbox-close" class="modal-close-button" aria-label="Close Lightbox">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <img id="lightbox-img" src="" alt="Enlarged temple photo">
+      <div id="lightbox-caption"></div>
+    </div>
+  </aside>
+
+  <!-- Application Scripts -->
+  <script src="js/translations.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
