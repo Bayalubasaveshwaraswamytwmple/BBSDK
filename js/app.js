@@ -287,9 +287,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  let lastFlowerTrigger = 0;
   if (flowerShowerBtn) {
     flowerShowerBtn.addEventListener("click", () => {
-      triggerFlowerShower(75);
+      const now = Date.now();
+      if (now - lastFlowerTrigger >= 1400) {
+        lastFlowerTrigger = now;
+        triggerFlowerShower(75);
+      }
     });
   }
 
@@ -676,12 +681,28 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // -------------------------------------------------------------
-  // 8. Search Functionality
+  // 8. Cybersecurity Defense & Input Sanitization
   // -------------------------------------------------------------
+  const sanitizeSearchInput = (inputStr) => {
+    if (typeof inputStr !== "string") return "";
+    // Strip all HTML tags, script syntax, quotes, and control chars to prevent XSS injection
+    // Whitelist English alphanumeric, Unicode Kannada range (\u0C80-\u0CFF), and safe punctuation
+    return inputStr
+      .replace(/<[^>]*>/g, "")
+      .replace(/[<>'";&`$\\]/g, "")
+      .replace(/[^a-zA-Z0-9 \u0C80-\u0CFF\-_]/g, "")
+      .slice(0, 80) // Limit max length against buffer/memory exhaustion attacks
+      .trim();
+  };
+
   if (searchInput) {
+    let debounceTimer = null;
     searchInput.addEventListener("input", (e) => {
-      state.searchQuery = e.target.value;
-      renderCards();
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        state.searchQuery = sanitizeSearchInput(e.target.value);
+        renderCards();
+      }, 120);
     });
   }
 
